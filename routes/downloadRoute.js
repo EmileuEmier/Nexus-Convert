@@ -10,8 +10,11 @@ const ffmpegStatic = require('ffmpeg-static');
 const router = express.Router();
 
 const DL_DIR = path.join(__dirname, '..', 'downloads');
+const COOKIES_FILE = path.join(__dirname, '..', 'cookies.txt');
 
 if (!fs.existsSync(DL_DIR)) fs.mkdirSync(DL_DIR, { recursive: true });
+
+const cookiesOption = fs.existsSync(COOKIES_FILE) ? { cookies: COOKIES_FILE } : {};
 
 // ---------------------------------------------------------------------------
 // In-memory job store
@@ -108,7 +111,7 @@ router.post('/info', async (req, res) => {
   }
 
   try {
-    const data = await ytdlp(clean, { dumpSingleJson: true, noWarnings: true });
+    const data = await ytdlp(clean, { ...cookiesOption, dumpSingleJson: true, noWarnings: true });
 
     const formats = Array.isArray(data.formats)
       ? data.formats
@@ -165,7 +168,7 @@ router.post('/process', async (req, res) => {
   // Pull the actual human-readable video title from the yt-dlp metadata response.
   let title = null;
   try {
-    const meta = await ytdlp(clean, { dumpSingleJson: true, noWarnings: true });
+    const meta = await ytdlp(clean, { ...cookiesOption, dumpSingleJson: true, noWarnings: true });
     title = meta?.title || null;
   } catch (_) { title = null; }
 
@@ -201,6 +204,7 @@ async function runProcess(job) {
   const outTemplate = path.join(DL_DIR, `${base}.%(ext)s`);
 
   const flags = {
+    ...cookiesOption,
     noWarnings: true,
     noPlaylist: true,
     output: outTemplate,
