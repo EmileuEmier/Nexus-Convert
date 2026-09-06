@@ -14,7 +14,8 @@ const COOKIES_FILE = path.join(__dirname, '..', 'cookies.txt');
 
 if (!fs.existsSync(DL_DIR)) fs.mkdirSync(DL_DIR, { recursive: true });
 
-const EXTRACTOR_ARGS = 'youtube:player_client=ios,android,web';
+const EXTRACTOR_ARGS = 'youtube:player_client=mweb,web';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 
 function getCookiesOption() {
   return fs.existsSync(COOKIES_FILE) ? { cookies: COOKIES_FILE } : {};
@@ -115,7 +116,7 @@ router.post('/info', async (req, res) => {
   }
 
   try {
-    const data = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, dumpSingleJson: true, noWarnings: true });
+    const data = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, userAgent: USER_AGENT, dumpSingleJson: true, noWarnings: true });
 
     const formats = Array.isArray(data.formats)
       ? data.formats
@@ -172,7 +173,7 @@ router.post('/process', async (req, res) => {
   // Pull the actual human-readable video title from the yt-dlp metadata response.
   let title = null;
   try {
-    const meta = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, dumpSingleJson: true, noWarnings: true });
+    const meta = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, userAgent: USER_AGENT, dumpSingleJson: true, noWarnings: true });
     title = meta?.title || null;
   } catch (_) { title = null; }
 
@@ -210,6 +211,7 @@ async function runProcess(job) {
   const flags = {
     ...getCookiesOption(),
     extractorArgs: EXTRACTOR_ARGS,
+    userAgent: USER_AGENT,
     noWarnings: true,
     noPlaylist: true,
     output: outTemplate,
