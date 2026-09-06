@@ -21,6 +21,13 @@ DIRS.forEach((dir) => {
   if (!fs.existsSync(full)) fs.mkdirSync(full, { recursive: true });
 });
 
+if (process.env.YOUTUBE_COOKIES_TEXT) {
+  fs.writeFileSync(
+    path.join(__dirname, 'cookies.txt'),
+    Buffer.from(process.env.YOUTUBE_COOKIES_TEXT, 'base64').toString('utf8')
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Middleware
 // ---------------------------------------------------------------------------
