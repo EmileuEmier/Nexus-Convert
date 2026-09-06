@@ -196,8 +196,8 @@ router.post('/process', async (req, res) => {
 // Build a yt-dlp format selector that respects the requested video quality
 function videoFormatStr(quality) {
   const h = parseInt(quality, 10) || 0;
-  if (!h) return 'bv*+ba/b';
-  return `bv*[height<=${h}]+ba/b[height<=${h}]/b`;
+  if (!h) return 'bv*+ba/b/best';
+  return `bv*[height<=${h}]+ba/b[height<=${h}]/bv*+ba/b/best`;
 }
 
 async function runProcess(job) {
@@ -212,7 +212,7 @@ async function runProcess(job) {
     output: outTemplate,
     restrictFilenames: true,
     newline: true,
-    ffmpegLocation: path.dirname(ffmpegStatic || ''),
+    ffmpegLocation: ffmpegStatic,
   };
 
   if (format === 'mp3' || format === 'wav' || format === 'm4a' || format === 'aac') {
