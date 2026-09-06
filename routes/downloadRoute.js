@@ -116,7 +116,7 @@ router.post('/info', async (req, res) => {
   }
 
   try {
-    const data = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, userAgent: USER_AGENT, dumpSingleJson: true, noWarnings: true, format: 'bestvideo+bestaudio/best' });
+    const data = await ytdlp(clean, { ...getCookiesOption(), dumpSingleJson: true, noWarnings: true });
 
     const formats = Array.isArray(data.formats)
       ? data.formats
@@ -173,7 +173,7 @@ router.post('/process', async (req, res) => {
   // Pull the actual human-readable video title from the yt-dlp metadata response.
   let title = null;
   try {
-    const meta = await ytdlp(clean, { ...getCookiesOption(), extractorArgs: EXTRACTOR_ARGS, userAgent: USER_AGENT, dumpSingleJson: true, noWarnings: true, format: 'bestvideo+bestaudio/best' });
+    const meta = await ytdlp(clean, { ...getCookiesOption(), dumpSingleJson: true, noWarnings: true });
     title = meta?.title || null;
   } catch (_) { title = null; }
 
