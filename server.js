@@ -22,7 +22,11 @@ DIRS.forEach((dir) => {
 });
 
 if (process.env.YOUTUBE_COOKIES_TEXT) {
-  fs.writeFileSync(path.join(__dirname, 'cookies.txt'), process.env.YOUTUBE_COOKIES_TEXT.trim(), 'utf8');
+  const cookiePath = path.join(__dirname, 'cookies.txt');
+  fs.writeFileSync(cookiePath, process.env.YOUTUBE_COOKIES_TEXT.trim(), 'utf8');
+  console.log(`[cookies] cookies.txt created successfully (${fs.statSync(cookiePath).size} bytes)`);
+} else {
+  console.log('[cookies] WARNING: YOUTUBE_COOKIES_TEXT env variable is missing or empty.');
 }
 
 // ---------------------------------------------------------------------------
