@@ -199,8 +199,9 @@ router.post('/process', async (req, res) => {
 // Build a yt-dlp format selector that respects the requested video quality
 function videoFormatStr(quality) {
   const h = parseInt(quality, 10) || 0;
-  if (!h) return 'bv*+ba/b/best';
-  return `bv*[height<=${h}]+ba/b[height<=${h}]/bv*+ba/b/best`;
+  if (!h) return 'bestvideo+bestaudio/best';
+  // Try the exact height, if not found try any video up to that height, if not found just grab the best available.
+  return `bestvideo[height<=${h}]+bestaudio/bestvideo+bestaudio/best`;
 }
 
 async function runProcess(job) {
@@ -229,7 +230,7 @@ async function runProcess(job) {
     flags.postprocessorArgs = format === 'mp3' ? `ffmpeg:-b:a ${kb}k` : undefined;
   } else if (format === 'webm') {
     flags.format = videoFormatStr(quality);
-    flags.mergeOutputFormat = 'webm';
+    // Don't force mergeOutputFormat if we just want best available
   } else if (format === '3gp') {
     flags.format = 'worst/best';
     flags.mergeOutputFormat = '3gp';
