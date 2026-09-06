@@ -1,9 +1,5 @@
 # 🚀 NexusConvert
 
-<p align="center">
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%237f53ac'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M28 66V34l44 32V34' stroke='%23031924' stroke-width='9' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="NexusConvert Logo" width="80" height="80">
-</p>
-
 <h3 align="center">All-in-One Media Downloader & Universal File Processing Platform</h3>
 
 <p align="center">
