@@ -22,10 +22,7 @@ DIRS.forEach((dir) => {
 });
 
 if (process.env.YOUTUBE_COOKIES_TEXT) {
-  fs.writeFileSync(
-    path.join(__dirname, 'cookies.txt'),
-    Buffer.from(process.env.YOUTUBE_COOKIES_TEXT, 'base64').toString('utf8')
-  );
+  fs.writeFileSync(path.join(__dirname, 'cookies.txt'), process.env.YOUTUBE_COOKIES_TEXT.trim(), 'utf8');
 }
 
 // ---------------------------------------------------------------------------
