@@ -1,0 +1,21 @@
+# Node dependencies (GitHub'a yüklenmeyecek paketler)
+node_modules/
+
+# Temporary upload and download directories (Deneme videolarının yüklenmesini engeller)
+downloads/*
+!downloads/.gitkeep
+uploads/*
+!uploads/.gitkeep
+temp/*
+!temp/.gitkeep
+
+# Logs and environment files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NexusConvert — futuristic all-in-one media URL downloader & universal file converter." />
+  <title>NexusConvert — Media Hub</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/glassmorphism.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%237f53ac'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M28 66V34l44 32V34' stroke='%23031924' stroke-width='9' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="app-shell">
+    <!-- ============================ SIDEBAR ============================ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-mark" aria-hidden="true">
+          <svg class="brand-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="brand-logo-g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="100%" stop-color="#7f53ac" />
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="22" fill="url(#brand-logo-g)" />
+            <path d="M28 66V34l44 32V34" stroke="#031924" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="brand-box">
+          <div class="brand-name grad-text">NexusConvert</div>
+          <div class="brand-tag">Media · Cloud Hub</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <div class="nav-label">Workspace</div>
+
+        <button class="nav-item" data-view="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>
+          </svg>
+          <span class="nav-txt">Overview</span>
+        </button>
+
+        <button class="nav-item active" data-view="downloader">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/>
+          </svg>
+          <span class="nav-txt">Media Downloader</span>
+        </button>
+
+        <button class="nav-item" data-view="converter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="m9 13 2 2 4-4"/>
+          </svg>
+          <span class="nav-txt">File Converter</span>
+        </button>
+
+        <button class="nav-item" data-view="queue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h11"/>
+          </svg>
+          <span class="nav-txt">Processing Queue</span>
+          <span class="nav-badge" id="queue-badge">0</span>
+        </button>
+
+        <div class="nav-label">System</div>
+
+        <button class="nav-item" data-view="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.82-.33 1.7 1.7 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.51 1.7 1.7 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .33-1.82 1.7 1.7 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.51-1 1.7 1.7 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.82.33h.01a1.7 1.7 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.51h.01a1.7 1.7 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.33 1.82v.01a1.7 1.7 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/>
+          </svg>
+          <span class="nav-txt">Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="collapse-toggle" id="sidebar-toggle" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 3H9a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12"/><path d="m16 12-4 4 4 4"/><path d="M8 3v18"/>
+          </svg>
+          <span class="nav-txt">Collapse panel</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Sidebar backdrop (mobile only) -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ============================ MAIN ============================ -->
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/>
+          </svg>
+        </button>
+        <div class="topbar-left">
+          <div class="topbar-title" id="topbar-title">Media Downloader</div>
+          <div class="topbar-crumb">nexusconvert / <span id="topbar-crumb">workspace</span></div>
+        </div>
+        <div class="topbar-status">
+          <span class="status-led pulse-dot"></span>
+          <span id="backend-status">Connecting…</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- ===================== HOME VIEW ===================== -->
+        <section class="view" id="view-home">
+          <div class="hero">
+            <span class="eyebrow"><span class="badge-dot" style="background:#00f2fe"></span> Nexus Engine online</span>
+            <h1>Transform any <span class="grad-text">media</span>.<br />Convert anything.</h1>
+            <p class="lead">
+              NexusConvert fuses a blazing media URL downloader with a universal batch file converter — wrapped in a
+              futuristic, glassmorphic cockpit.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" data-goto="downloader">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+                Grab a video
+              </button>
+              <button class="btn btn-ghost" data-goto="converter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m9 13 2 2 4-4"/></svg>
+                Convert files
+              </button>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="glass-card feature-card" data-goto="downloader">
+              <div class="icon-orb">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+              </div>
+              <h3>Media URL Downloader</h3>
+              <p>Paste any media URL, pick MP3/CD-quality audio or MP4 up to 4K, and watch live progress with speed telemetry.</p>
+              <div class="features-meta">
+                <span class="pill pill-cyan">MP3 · 320k</span>
+                <span class="pill pill-blue">MP4 · 4K</span>
+                <span class="pill pill-purple">WAV · FLAC</span>
+              </div>
+            </div>
+
+            <div class="glass-card feature-card" data-goto="converter">
+              <div class="icon-orb">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="m9 13 2 2 4-4"/></svg>
+              </div>
+              <h3>Universal File Converter</h3>
+              <p>Batch-convert images, documents, audio and video. Drag &amp; drop up to 20 files, choose targets per file, convert all at once.</p>
+              <div class="features-meta">
+                <span class="pill pill-cyan">30+ formats</span>
+                <span class="pill pill-blue">Batch queue</span>
+                <span class="pill pill-purple">Zero signup</span>
+              </div>
+            </div>
+
+            <div class="glass-card feature-card" data-goto="queue">
+              <div class="icon-orb">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/><path d="M12 7v5l3 3"/></svg>
+              </div>
+              <h3>Live Processing Queue</h3>
+              <p>Every download and conversion streams real-time progress — completion %, transfer speed, sized outputs, and one-click downloads.</p>
+              <div class="features-meta">
+                <span class="pill pill-teal">Real-time</span>
+                <span class="pill pill-amber">Queue aware</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== DOWNLOADER VIEW ===================== -->
+        <section class="view active" id="view-downloader">
+          <div class="hero" style="padding-top: 6px;">
+            <span class="eyebrow"><span class="badge-dot"></span> Universal media scraper</span>
+            <h1>Download &amp; <span class="grad-text">convert</span> media URLs</h1>
+            <p class="lead">Paste a YouTube / video link. Pick your format &amp; quality. Watch it process and grab the file.</p>
+          </div>
+
+          <div class="glass-card url-panel animate-in" style="--delay:80ms">
+            <form id="url-form" autocomplete="off">
+              <div class="url-input-row">
+                <div class="url-wrap">
+                  <svg class="url-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>
+                  </svg>
+                  <input type="text" id="url-input" class="input" placeholder="Paste media or YouTube URL here…" spellcheck="false" />
+                  <button type="button" class="paste-btn" id="paste-btn">Paste</button>
+                </div>
+                <button class="btn btn-primary" type="submit" id="fetch-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 9-6 6"/><path d="M8 11 6 9l3-3 2 2"/><path d="m16 13-2 2-3-3 2-2"/></svg>
+                  <span id="fetch-btn-label">Fetch / Convert</span>
+                </button>
+              </div>
+
+              <div class="options-row">
+                <div>
+                  <label class="field-label" for="format-select">Output format</label>
+                  <select class="select" id="format-select">
+                    <option value="" disabled selected>Select format…</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="quality-select">Quality / Bitrate</label>
+                  <select class="select" id="quality-select"></select>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="glass-card media-card" id="media-card">
+            <div class="media-thumb">
+              <img id="media-thumb" alt="Media thumbnail" />
+              <span class="pill pill-purple badge-overlay" id="media-dur">0:00</span>
+            </div>
+            <div class="media-info">
+              <div class="media-meta-row">
+                <span class="pill pill-cyan" id="media-format-pill">—</span>
+                <span class="pill pill-blue" id="media-fetchmode">demo mode</span>
+              </div>
+              <h3 id="media-title">Media preview</h3>
+              <div class="media-meta-row">
+                <span class="subtle" id="media-channel">channel</span>
+                <span class="muted">•</span>
+                <span class="muted" id="media-views">—</span>
+              </div>
+
+              <div class="media-progress-area" id="media-progress-area" style="display:none">
+                <div class="progress"><div class="bar" id="media-bar" style="width:0%"></div></div>
+                <div class="media-stats-row">
+                  <span id="media-status-txt"><span class="spinner" style="width:14px;height:14px"></span> Fetching metadata…</span>
+                  <span class="stats-right">
+                    <span><b id="media-percent">0</b>%</span>
+                    <span><b id="media-speed">0.0</b> MB/s</span>
+                    <span id="media-size" style="display:none"><b>0</b> MB</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="media-cta-row">
+                <a class="btn btn-primary dl-btn-ready" id="media-download" style="display:none">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+                  <span id="media-dl-label">Download file</span>
+                </a>
+                <button class="btn btn-ghost" id="media-reset">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+                  New link
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== CONVERTER VIEW ===================== -->
+        <section class="view" id="view-converter">
+          <div class="hero" style="padding-top: 6px;">
+            <span class="eyebrow"><span class="badge-dot"></span> 30+ formats supported</span>
+            <h1>Universal <span class="grad-text">file converter</span></h1>
+            <p class="lead">Batch-convert images, documents, audio &amp; video. Drop files, choose targets, and let the engine do the rest.</p>
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="file-input" multiple />
+            <div class="dz-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/>
+              </svg>
+            </div>
+            <h3>Drag &amp; drop files here</h3>
+            <p>or <b class="grad-text">browse</b> — up to 20 files, 300&nbsp;MB each.</p>
+            <div class="format-tags">
+              <span class="ft">PNG</span><span class="ft">JPG</span><span class="ft">WEBP</span><span class="ft">SVG</span>
+              <span class="ft">GIF</span><span class="ft">ICO</span><span class="ft">PDF</span><span class="ft">DOCX</span>
+              <span class="ft">TXT</span><span class="ft">HTML</span><span class="ft">EPUB</span><span class="ft">MP3</span>
+              <span class="ft">WAV</span><span class="ft">OGG</span><span class="ft">FLAC</span><span class="ft">AAC</span>
+              <span class="ft">MP4</span><span class="ft">AVI</span><span class="ft">MKV</span><span class="ft">MOV</span><span class="ft">WEBM</span>
+            </div>
+          </div>
+
+          <div class="file-table-wrap" id="file-table-wrap" style="display:none">
+            <table class="file-table">
+              <thead>
+                <tr>
+                  <th style="width:34%">File</th>
+                  <th style="width:14%">Size</th>
+                  <th style="width:22%">Convert to</th>
+                  <th style="width:12%">Status</th>
+                  <th style="width:18%; text-align:right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="file-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="queue-footer" id="queue-footer" style="display:none">
+            <div class="global-progress">
+              <div class="media-stats-row">
+                <span id="queue-status-txt" class="subtle">0 files queued</span>
+                <span><b id="queue-percent">0</b>%</span>
+              </div>
+              <div class="progress"><div class="bar" id="queue-bar" style="width:0%"></div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center">
+              <button class="btn btn-ghost btn-sm" id="clear-all-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 15h10l1-15"/></svg>
+                Clear
+              </button>
+              <button class="btn btn-primary" id="convert-all-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-7l1-7z"/></svg>
+                Convert all files
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== QUEUE VIEW ===================== -->
+        <section class="view" id="view-queue">
+          <div class="hero" style="padding-top: 6px;">
+            <span class="eyebrow"><span class="badge-dot"></span> Live job monitor</span>
+            <h1>Processing <span class="grad-text">queue</span></h1>
+            <p class="lead">Every background job from the downloader and converter surfaces here with live telemetry.</p>
+          </div>
+          <div id="queue-list" class="queue-list">
+            <div class="empty-state glass">
+              <div class="es-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <h3 class="h2">Queue is clear</h3>
+              <p class="subtle" style="margin-top:6px">New download &amp; conversion jobs will appear here in real time.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== SETTINGS VIEW ===================== -->
+        <section class="view" id="view-settings">
+          <div class="hero" style="padding-top: 6px;">
+            <span class="eyebrow"><span class="badge-dot"></span> Runtime preferences</span>
+            <h1>Engine <span class="grad-text">settings</span></h1>
+            <p class="lead">Tune how NexusConvert behaves. Preferences persist locally in this browser.</p>
+          </div>
+
+          <div class="settings-grid">
+            <div class="glass-card settings-card">
+              <h3>Behavior</h3>
+              <div class="sub">Tweak defaults and app micro-behaviors.</div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="sr-t">Auto-paste from clipboard</div>
+                  <div class="sr-d">Read the clipboard when opening the downloader.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="set-autopaste" />
+                  <span class="track"></span>
+                </label>
+              </div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="sr-t">Particles background</div>
+                  <div class="sr-d">Animated floating particles behind the UI.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="set-particles" checked />
+                  <span class="track"></span>
+                </label>
+              </div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="sr-t">Auto-download when ready</div>
+                  <div class="sr-d">Start the file download automatically on completion.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="set-autodl" />
+                  <span class="track"></span>
+                </label>
+              </div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="sr-t">Sound effects</div>
+                  <div class="sr-d">Soft confirmation blips on success / error.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="set-sound" checked />
+                  <span class="track"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="glass-card settings-card">
+              <h3>Engine status</h3>
+              <div class="sub">Live capabilities reported by the backend.</div>
+              <div class="settings-stats" id="engine-stats">
+                <div class="stat-tile"><div class="val" id="stat-backend">—</div><div class="lbl">Backend</div></div>
+                <div class="stat-tile"><div class="val" id="stat-fetchmode">—</div><div class="lbl">Fetch mode</div></div>
+                <div class="stat-tile"><div class="val" id="stat-convert">—</div><div class="lbl">Converter</div></div>
+                <div class="stat-tile"><div class="val" id="stat-formats">21</div><div class="lbl">Formats</div></div>
+              </div>
+              <div style="margin-top:18px; display:flex; flex-direction:column; gap:8px">
+                <button class="btn btn-ghost btn-sm" id="recheck-engine">Recheck engine</button>
+                <button class="btn btn-danger-ghost btn-sm" id="reset-settings">Reset to defaults</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="app-footer">
+        <span>© 2026 NexusConvert & Emir Aytekin · built with <span class="grad-text" style="font-weight:700">Express + Vanilla JS</span></span>
+        <span class="muted mono">v1.3.2 · engine: <span id="foot-mode">pending</span></span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast-stack" id="toast-stack"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/downloader.js"></script>
+  <script src="/js/converter.js"></script>
+</body>
+</html>
